@@ -4,4 +4,3 @@ wit_bindgen::generate!({
     pub_export_macro: true,
     default_bindings_module: "wassel_sdk_rust::bindings",
 });
-
