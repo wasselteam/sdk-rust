@@ -1,0 +1,8 @@
+id = "rust-hello"
+name = "Rust Hello Plugin"
+version = "0.0.0"
+component = "${CARGO_TARGET_DIR:target}/wasm32-wasip2/debug/rust_hello.wasm"
+endpoint = "/rust/hello/"
+
+[build]
+cmd = "cargo build --target wasm32-wasip2"
