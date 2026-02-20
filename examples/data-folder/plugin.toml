@@ -1,0 +1,11 @@
+id = "rust-data-folder"
+name = "Rust Data Folder Plugin"
+version = "0.0.0"
+component = "${CARGO_TARGET_DIR:target}/wasm32-wasip2/debug/rust_data_folder.wasm"
+endpoint = "/rust/data-folder/"
+
+[build]
+cmd = "cargo build --target wasm32-wasip2"
+
+[build.data]
+"data/file.txt" = "file.txt"

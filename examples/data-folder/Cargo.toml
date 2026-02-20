@@ -1,0 +1,12 @@
+[package]
+name = "rust-data-folder"
+version = "0.0.0"
+edition = "2024"
+
+[workspace]
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wassel-sdk-rust = { path = "../.." }
