@@ -3,4 +3,3 @@ package wassel:sdk;
 world http-plugin {
     include wassel:foundation/http-plugin;
 }
-
