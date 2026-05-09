@@ -1,0 +1,12 @@
+id = "rust-data-folder"
+name = "Rust Configuration Plugin"
+version = "0.0.0"
+component = "${CARGO_TARGET_DIR:target}/wasm32-wasip2/debug/rust_configuration.wasm"
+endpoint = "/rust/configuration/"
+
+[variables]
+secret = "very-secret-key"
+hostname = "${HOSTNAME}"
+
+[build]
+cmd = "cargo build --target wasm32-wasip2"
