@@ -20,7 +20,7 @@ impl Guest for Plugin {
 }
 
 fn get_config(key: &str) -> String {
-    wassel_sdk_rust::bindings::wasi::config::store::get(key)
+    wassel_sdk_rust::bindings::wasi_config::store::get(key)
         .unwrap_or_default()
         .unwrap_or_default()
 }
@@ -33,7 +33,7 @@ fn write_response(out: ResponseOutparam, status: u16, body_bytes: Option<&[u8]>)
         let body = res.body().unwrap();
         {
             let stream = body.write().unwrap();
-            stream.write(bytes.into()).unwrap();
+            stream.write(bytes).unwrap();
         }
         OutgoingBody::finish(body, None).unwrap();
     }

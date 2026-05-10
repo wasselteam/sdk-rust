@@ -20,7 +20,7 @@ fn write_response(out: ResponseOutparam, status: u16, body_bytes: Option<&[u8]>)
         let body = res.body().unwrap();
         {
             let stream = body.write().unwrap();
-            stream.write(bytes.into()).unwrap();
+            stream.write(bytes).unwrap();
         }
         OutgoingBody::finish(body, None).unwrap();
     }

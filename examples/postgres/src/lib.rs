@@ -1,3 +1,5 @@
+use std::error::Error;
+
 use wassel_sdk_rust::bindings::{
     export,
     exports::wassel::foundation::http_handler::Guest,
@@ -15,7 +17,7 @@ const CONNECTION_STRING: &str =
     "host=127.0.0.1 port=5432 user=postgres password=MegaVeryStongPass1337 dbname=digital-deanery";
 
 // This functiuon demonstrates how to query the database
-fn make_query() -> Result<i64, postgres::Error> {
+fn make_query() -> Result<i64, Box<dyn Error>> {
     // Create default config using connection string
     let config = postgres::ConnectionConfig::new(CONNECTION_STRING);
 
@@ -32,8 +34,8 @@ fn make_query() -> Result<i64, postgres::Error> {
 
     // Try to get the first row and then get the first value from that row.
     // We expect query to return a single row with type `(INT8)`
-    let Some(postgres::Value::Int64(num)) = rows.rows.get(0).and_then(|r| r.get(0)) else {
-        return Err(postgres::Error::Query("Expected Int64 in row".to_owned()));
+    let Some(postgres::Value::Int64(num)) = rows.rows.first().and_then(|r| r.first()) else {
+        return Err("Expected Int64 in row".to_owned().into());
     };
 
     // Return result
@@ -62,7 +64,7 @@ fn write_response(out: ResponseOutparam, status: u16, body_bytes: Option<&[u8]>)
         let body = res.body().unwrap();
         {
             let stream = body.write().unwrap();
-            stream.write(bytes.into()).unwrap();
+            stream.write(bytes).unwrap();
         }
         OutgoingBody::finish(body, None).unwrap();
     }
