@@ -1,6 +1,8 @@
 use std::{borrow::Cow, io::Read};
 
+#[derive(Default)]
 pub enum Body {
+    #[default]
     Empty,
     Full(Vec<u8>),
     Stream(Box<dyn Read>),

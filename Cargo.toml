@@ -8,6 +8,10 @@ edition = "2024"
 [workspace.dependencies]
 syn = "2.0"
 quote = "1.0"
+thiserror = "2.0.18"
+http = "1.4.0"
+wasip2 = "1.0.3"
+wit-bindgen = "0.52.0"
 
 [package]
 name = "wassel-sdk"
@@ -17,6 +21,7 @@ edition.workspace = true
 [dependencies]
 wassel-sdk-macros.path = "macros"
 
-http = "1.4.0"
-wasip2 = "1.0.3"
-wit-bindgen = "0.52.0"
+http.workspace = true
+thiserror.workspace = true
+wasip2.workspace = true
+wit-bindgen.workspace = true

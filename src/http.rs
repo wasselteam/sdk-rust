@@ -1,11 +1,14 @@
 mod body;
+pub mod client;
+mod headers;
+mod method;
 mod request;
 mod response;
 
-use std::str::FromStr;
-
 pub use body::Body;
+pub use headers::{headers_from_wasi, headers_to_wasi};
 pub use http::StatusCode;
+pub use method::{method_from_wasi, method_to_wasi};
 pub use request::Request;
 pub use response::{IntoResponse, Response};
 pub use wassel_sdk_macros::handler;
@@ -24,9 +27,9 @@ pub fn handle_request_with_handler<I: IntoResponse>(
 fn convert_request(
     in_request: wasip2::http::types::IncomingRequest,
 ) -> (Request, wasip2::http::types::IncomingBody) {
-    let method = convert_method(in_request.method());
+    let method = method_from_wasi(in_request.method());
     let uri = convert_uri(&in_request);
-    let headers = convert_headers(in_request.headers());
+    let headers = headers_from_wasi(&in_request.headers());
 
     let in_body = in_request.consume().expect("Request should have body");
     let stream = in_body.stream().expect("Body should have stream");
@@ -38,23 +41,6 @@ fn convert_request(
     *request.headers_mut() = headers;
 
     (request, in_body)
-}
-
-fn convert_method(method: wasip2::http::types::Method) -> http::Method {
-    match method {
-        wasip2::http::types::Method::Get => http::Method::GET,
-        wasip2::http::types::Method::Head => http::Method::HEAD,
-        wasip2::http::types::Method::Post => http::Method::POST,
-        wasip2::http::types::Method::Put => http::Method::PUT,
-        wasip2::http::types::Method::Delete => http::Method::DELETE,
-        wasip2::http::types::Method::Connect => http::Method::CONNECT,
-        wasip2::http::types::Method::Options => http::Method::OPTIONS,
-        wasip2::http::types::Method::Trace => http::Method::TRACE,
-        wasip2::http::types::Method::Patch => http::Method::PATCH,
-        wasip2::http::types::Method::Other(s) => {
-            http::Method::from_bytes(s.as_bytes()).expect("WASI Method should be valid HTTP method")
-        }
-    }
 }
 
 fn convert_uri(in_request: &wasip2::http::types::IncomingRequest) -> http::Uri {
@@ -78,20 +64,4 @@ fn convert_uri(in_request: &wasip2::http::types::IncomingRequest) -> http::Uri {
     }
 
     builder.build().expect("WASI URI should be valid HTTP URI")
-}
-
-fn convert_headers(headers: wasip2::http::types::Headers) -> http::HeaderMap {
-    let entries: Vec<(http::HeaderName, http::HeaderValue)> = headers
-        .entries()
-        .into_iter()
-        .map(|(name, value)| {
-            let name = http::HeaderName::from_str(&name)
-                .expect("WASI header name should be valid HTTP header name");
-            let value = http::HeaderValue::from_bytes(&value)
-                .expect("WASI header value should be valid HTTP header value");
-            (name, value)
-        })
-        .collect();
-
-    http::HeaderMap::from_iter(entries)
 }
