@@ -135,7 +135,7 @@ dependencies = [
 
 [[package]]
 name = "rust-configuration"
-version = "1.0.0"
+version = "2.0.0"
 dependencies = [
  "wassel-sdk",
 ]
@@ -256,7 +256,7 @@ dependencies = [
 
 [[package]]
 name = "wassel-sdk"
-version = "1.0.0"
+version = "2.0.0"
 dependencies = [
  "http",
  "wasip2",
@@ -266,7 +266,7 @@ dependencies = [
 
 [[package]]
 name = "wassel-sdk-macros"
-version = "1.0.0"
+version = "2.0.0"
 dependencies = [
  "quote",
  "syn",

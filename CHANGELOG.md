@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - yyyy-mm-dd
 
+## [2.0.0] - 2026.05.12
+
 ### Added
 
 - [framework] `handler` attribute macro
@@ -15,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - [sdk] BREAKING: Renamed package `wassel-sdk-rust` to `wassel-sdk`
+- [sdk] BREAKING: Renamed `wassel_sdk::bindings::wasi::config` to `wassel_sdk::bindings::wasi_config`
 
 ## [1.0.0] - 2026-05-11
 
