@@ -1,31 +1,6 @@
-use wassel_sdk_rust::bindings::{
-    export,
-    exports::wassel::foundation::http_handler::{Guest, IncomingRequest, ResponseOutparam},
-    wasi::http::types::{Headers, OutgoingBody, OutgoingResponse},
-};
+use wassel_sdk::http::{IntoResponse, Request, handler};
 
-struct Plugin;
-
-impl Guest for Plugin {
-    fn handle_request(_request: IncomingRequest, response_out: ResponseOutparam) {
-        write_response(response_out, 200, Some(b"Hello from Rust!"));
-    }
+#[handler]
+fn handler(request: Request) -> impl IntoResponse {
+    format!("Hello, {}, from Rust!", request.uri().path())
 }
-
-fn write_response(out: ResponseOutparam, status: u16, body_bytes: Option<&[u8]>) {
-    let res = OutgoingResponse::new(Headers::new());
-    res.set_status_code(status).unwrap();
-
-    if let Some(bytes) = body_bytes {
-        let body = res.body().unwrap();
-        {
-            let stream = body.write().unwrap();
-            stream.write(bytes).unwrap();
-        }
-        OutgoingBody::finish(body, None).unwrap();
-    }
-
-    ResponseOutparam::set(out, Ok(res));
-}
-
-export!(Plugin);

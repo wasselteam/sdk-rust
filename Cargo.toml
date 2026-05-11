@@ -1,8 +1,22 @@
-[package]
-name = "wassel-sdk-rust"
+[workspace]
+members = ["macros"]
+
+[workspace.package]
 version = "1.0.0"
 edition = "2024"
 
+[workspace.dependencies]
+syn = "2.0"
+quote = "1.0"
+
+[package]
+name = "wassel-sdk"
+version.workspace = true
+edition.workspace = true
+
 [dependencies]
+wassel-sdk-macros.path = "macros"
+
+http = "1.4.0"
 wasip2 = "1.0.3"
 wit-bindgen = "0.52.0"

@@ -15,7 +15,7 @@ mod wasi_config_bindings {
 wit_bindgen::generate!({
     world: "http-plugin",
     pub_export_macro: true,
-    default_bindings_module: "wassel_sdk_rust::bindings",
+    default_bindings_module: "wassel_sdk::bindings",
     with: {
         "wassel:foundation/http-client": generate,
         "wassel:foundation/postgres": generate,

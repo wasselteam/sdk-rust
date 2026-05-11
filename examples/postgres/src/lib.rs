@@ -1,15 +1,9 @@
 use std::error::Error;
 
-use wassel_sdk_rust::bindings::{
-    export,
-    exports::wassel::foundation::http_handler::Guest,
-    wasi::http::types::{
-        Headers, IncomingRequest, OutgoingBody, OutgoingResponse, ResponseOutparam,
-    },
-    wassel::foundation::postgres::{self, Parameter},
+use wassel_sdk::{
+    bindings::wassel::foundation::postgres::{self, Parameter},
+    http::{IntoResponse, Request, StatusCode, handler},
 };
-
-struct Plugin;
 
 // See `https://docs.rs/tokio-postgres/latest/tokio_postgres/config/struct.Config.html`
 // for connection string options
@@ -43,33 +37,10 @@ fn make_query() -> Result<i64, Box<dyn Error>> {
 }
 
 // Implement WASM exports
-impl Guest for Plugin {
-    fn handle_request(_request: IncomingRequest, response_out: ResponseOutparam) {
-        let (status, message) = match make_query() {
-            Ok(num) => (200, format!("SELECT 1 + 1 = {num}")),
-            Err(e) => (500, e.to_string()),
-        };
-
-        write_response(response_out, status, Some(message.as_bytes()));
+#[handler]
+fn handle_request(_request: Request) -> impl IntoResponse {
+    match make_query() {
+        Ok(num) => (StatusCode::OK, format!("SELECT 1 + 1 = {num}")),
+        Err(e) => (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
 }
-
-// Convenience function to write all bytes to response stream. Please do do
-// so many unwraps in your code.
-fn write_response(out: ResponseOutparam, status: u16, body_bytes: Option<&[u8]>) {
-    let res = OutgoingResponse::new(Headers::new());
-    res.set_status_code(status).unwrap();
-
-    if let Some(bytes) = body_bytes {
-        let body = res.body().unwrap();
-        {
-            let stream = body.write().unwrap();
-            stream.write(bytes).unwrap();
-        }
-        OutgoingBody::finish(body, None).unwrap();
-    }
-
-    ResponseOutparam::set(out, Ok(res));
-}
-
-export!(Plugin);

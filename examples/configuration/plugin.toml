@@ -1,4 +1,4 @@
-id = "rust-data-folder"
+id = "rust-configuration"
 name = "Rust Configuration Plugin"
 version = "0.0.0"
 component = "${CARGO_TARGET_DIR:target}/wasm32-wasip2/debug/rust_configuration.wasm"

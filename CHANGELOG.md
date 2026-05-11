@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - yyyy-mm-dd
 
+### Added
+
+- [framework] `handler` attribute macro
+- [framework] `Body`, `Request`, `Response`, `IntoResponse` types
+
+### Changed
+
+- [sdk] BREAKING: Renamed package `wassel-sdk-rust` to `wassel-sdk`
+
 ## [1.0.0] - 2026-05-11
 
 ### Added
