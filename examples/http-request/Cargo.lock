@@ -135,7 +135,7 @@ dependencies = [
 
 [[package]]
 name = "rust-http-request"
-version = "2.0.0"
+version = "2.1.0"
 dependencies = [
  "serde_json",
  "wassel-sdk",
@@ -277,7 +277,7 @@ dependencies = [
 
 [[package]]
 name = "wassel-sdk"
-version = "2.0.0"
+version = "2.1.0"
 dependencies = [
  "http",
  "thiserror",
@@ -288,7 +288,7 @@ dependencies = [
 
 [[package]]
 name = "wassel-sdk-macros"
-version = "2.0.0"
+version = "2.1.0"
 dependencies = [
  "quote",
  "syn",

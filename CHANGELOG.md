@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - yyyy-mm-dd
 
+## [2.1.0] - 2026.05.12
+
+### Added
+
 - [framework] Introduce HTTP client to simplify making HTPT requests
+
+### Changed
+
 - [example] Update HTTP example to use new HTTP client
 
 ## [2.0.0] - 2026.05.12
