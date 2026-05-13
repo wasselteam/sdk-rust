@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - yyyy-mm-dd
 
+### Changed
+
+- [sdk] BREAKING: Renamed `postgres::Value::Unsupported` to `postgres::Value::Other`
+
 ## [2.1.0] - 2026.05.12
 
 ### Added
