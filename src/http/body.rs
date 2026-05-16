@@ -13,8 +13,10 @@ impl Read for Body {
         match self {
             Body::Empty => Ok(0),
             Body::Full(bytes) => {
-                buf[0..bytes.len()].copy_from_slice(bytes);
-                Ok(bytes.len())
+                let amt = std::cmp::min(buf.len(), bytes.len());
+                buf[..amt].copy_from_slice(&bytes[..amt]);
+                *bytes = bytes.split_off(amt);
+                Ok(amt)
             }
             Body::Stream(read) => read.read(buf),
         }

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased] - yyyy-mm-dd
 
+## [2.1.1] - 2026.05.12
+
+### Fixed
+
+- [framework] Fix panic in Read impl of Body
+
 ## [2.1.0] - 2026.05.12
 
 ### Added

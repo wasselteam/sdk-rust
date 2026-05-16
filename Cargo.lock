@@ -269,7 +269,7 @@ dependencies = [
 
 [[package]]
 name = "wassel-sdk"
-version = "2.1.0"
+version = "2.1.1"
 dependencies = [
  "http",
  "thiserror",
@@ -280,7 +280,7 @@ dependencies = [
 
 [[package]]
 name = "wassel-sdk-macros"
-version = "2.1.0"
+version = "2.1.1"
 dependencies = [
  "quote",
  "syn",
