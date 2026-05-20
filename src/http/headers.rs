@@ -25,6 +25,8 @@ pub fn headers_to_wasi(headers: &http::HeaderMap) -> wasi::Fields {
             // TODO: Maybe we should do tracing::error here
             #[cfg(debug_assertions)]
             panic!("failed to append validated header `{name}`: {e}");
+            #[cfg(not(debug_assertions))]
+            eprintln!("failed to append validated header `{name}`: {e}");
         }
     });
     fields

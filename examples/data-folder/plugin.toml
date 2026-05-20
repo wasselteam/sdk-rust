@@ -1,11 +1,12 @@
 id = "rust-data-folder"
 name = "Rust Data Folder Plugin"
 version = "0.0.0"
-component = "${CARGO_TARGET_DIR:target}/wasm32-wasip2/debug/rust_data_folder.wasm"
+component = "${CARGO_TARGET_DIR:../../target}/wasm32-wasip2/release/rust_data_folder.wasm"
 endpoint = "/rust/data-folder/"
 
 [build]
-cmd = "cargo build --target wasm32-wasip2"
+cmd = "cargo build --target wasm32-wasip2 --release"
 
 [build.data]
 "data/file.txt" = "file.txt"
+"data/ferris.png" = "ferris.png"

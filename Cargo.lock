@@ -134,6 +134,42 @@ dependencies = [
 ]
 
 [[package]]
+name = "rust-configuration"
+version = "2.0.0"
+dependencies = [
+ "wassel-sdk",
+]
+
+[[package]]
+name = "rust-data-folder"
+version = "2.0.0"
+dependencies = [
+ "wassel-sdk",
+]
+
+[[package]]
+name = "rust-hello"
+version = "2.0.0"
+dependencies = [
+ "wassel-sdk",
+]
+
+[[package]]
+name = "rust-http-request"
+version = "2.1.0"
+dependencies = [
+ "serde_json",
+ "wassel-sdk",
+]
+
+[[package]]
+name = "rust-postgres"
+version = "2.0.0"
+dependencies = [
+ "wassel-sdk",
+]
+
+[[package]]
 name = "semver"
 version = "1.0.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -271,6 +307,7 @@ dependencies = [
 name = "wassel-sdk"
 version = "2.1.1"
 dependencies = [
+ "bytes",
  "http",
  "thiserror",
  "wasip2",

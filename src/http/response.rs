@@ -5,7 +5,7 @@ use std::{
 };
 use wasip2::http::types::{self as wasi};
 
-use crate::http::Body;
+use crate::http::{Body, headers_to_wasi};
 
 pub type Response = http::Response<Body>;
 
@@ -23,15 +23,7 @@ pub trait IntoResponse {
             body,
         ) = self.into_response().into_parts();
 
-        let fields = wasi::Fields::new();
-        headers.iter().for_each(|(name, value)| {
-            if let Err(e) = fields.append(name.as_str(), value.as_bytes()) {
-                // TODO: Maybe we should do tracing::error here
-                #[cfg(debug_assertions)]
-                panic!("failed to append validated header `{name}`: {e}");
-            }
-        });
-
+        let fields = headers_to_wasi(&headers);
         let outgoing_response = wasi::OutgoingResponse::new(fields);
 
         outgoing_response
@@ -49,13 +41,17 @@ fn write_body(res: &wasi::OutgoingResponse, body: Body) -> Result<(), wasi::Erro
     let mut stream = out_body
         .write()
         .expect("Newly created body should have a stream");
+    let map_err = |e: io::Error| wasi::ErrorCode::InternalError(Some(e.to_string()));
 
     match body {
-        Body::Empty => Ok(()),
-        Body::Full(bytes) => stream.write_all(&bytes),
-        Body::Stream(mut read) => io::copy(&mut read, &mut stream).map(drop),
-    }
-    .map_err(|e| wasi::ErrorCode::InternalError(Some(e.to_string())))?;
+        Body::Empty => {}
+        Body::Full(bytes) => stream.write_all(&bytes).map_err(map_err)?,
+        Body::Stream(mut read) => {
+            let mut buf = Vec::new();
+            read.read_to_end(&mut buf).map_err(map_err)?;
+            stream.write_all(&buf).map_err(map_err)?;
+        }
+    };
 
     drop(stream);
 
