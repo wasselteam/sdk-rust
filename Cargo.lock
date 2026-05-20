@@ -142,7 +142,7 @@ dependencies = [
 
 [[package]]
 name = "rust-data-folder"
-version = "2.0.0"
+version = "2.1.2"
 dependencies = [
  "wassel-sdk",
 ]
@@ -305,7 +305,7 @@ dependencies = [
 
 [[package]]
 name = "wassel-sdk"
-version = "2.1.1"
+version = "2.1.2"
 dependencies = [
  "bytes",
  "http",
@@ -317,7 +317,7 @@ dependencies = [
 
 [[package]]
 name = "wassel-sdk-macros"
-version = "2.1.1"
+version = "2.1.2"
 dependencies = [
  "quote",
  "syn",
