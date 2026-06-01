@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - [sdk] BREAKING: Renamed `postgres::Value::Unsupported` to `postgres::Value::Other`
 
+### Added
+
+- [example] Added axum example
+- [example] Added fibonacci sequence example
+
 ## [2.1.0] - 2026.05.12
 
 ### Added

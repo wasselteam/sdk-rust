@@ -1,0 +1,16 @@
+[package]
+name = "rust-axum"
+version = "2.0.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[workspace]
+
+[dependencies]
+wassel-sdk = { path = "../.." }
+axum = { version = "0.8.9", default-features = false, features = ["json"] }
+serde = { version = "1.0.228", features = ["derive"] }
+pollster = "0.4.0"
+tower = "0.5.3"
