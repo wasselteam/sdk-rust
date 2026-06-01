@@ -6,7 +6,7 @@ use http::{HeaderMap, HeaderValue, StatusCode, header::IntoHeaderName};
 use wasip2::http::types as wasi;
 
 use crate::{
-    bindings::wassel::foundation::http_client,
+    bindings::wassel::http_client::http_client,
     http::{Body, Request, Response, headers_from_wasi, headers_to_wasi, method_to_wasi},
 };
 

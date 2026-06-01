@@ -1,7 +1,7 @@
 use std::error::Error;
 
 use wassel_sdk::{
-    bindings::wassel::foundation::postgres::{self, Parameter},
+    bindings::wassel::postgres::postgres::{self, Parameter},
     http::{IntoResponse, Request, StatusCode, handler},
 };
 

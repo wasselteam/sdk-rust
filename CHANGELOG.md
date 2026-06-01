@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - [sdk] BREAKING: Renamed `postgres::Value::Unsupported` to `postgres::Value::Other`
+- [sdk] BREAKING: Update WIT with new `wassel:postgres` and `wassel:http-client` packages
 
 ### Added
 

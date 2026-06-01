@@ -17,8 +17,8 @@ wit_bindgen::generate!({
     pub_export_macro: true,
     default_bindings_module: "wassel_sdk::bindings",
     with: {
-        "wassel:foundation/http-client": generate,
-        "wassel:foundation/postgres": generate,
+        "wassel:http-client/http-client": generate,
+        "wassel:postgres/postgres": generate,
 
         "wasi:config/store@0.2.0-rc.1": wasi_config_bindings::wasi::config::store,
 
