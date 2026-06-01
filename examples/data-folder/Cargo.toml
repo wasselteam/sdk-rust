@@ -1,9 +1,7 @@
 [package]
 name = "rust-data-folder"
-version = "2.0.0"
+version = "2.1.2"
 edition = "2024"
-
-[workspace]
 
 [lib]
 crate-type = ["cdylib"]

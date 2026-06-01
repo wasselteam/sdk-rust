@@ -3,8 +3,6 @@ name = "rust-http-request"
 version = "2.1.0"
 edition = "2024"
 
-[workspace]
-
 [lib]
 crate-type = ["cdylib"]
 

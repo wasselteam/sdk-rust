@@ -1,6 +1,7 @@
 use std::borrow::Cow;
 use std::io;
 use std::io::Read as _;
+use std::io::Write as _;
 
 use http::{HeaderMap, HeaderValue, StatusCode, header::IntoHeaderName};
 use wasip2::http::types as wasi;
@@ -53,7 +54,18 @@ impl RequestExt for Request {
             let mut stream = out_body
                 .write()
                 .expect("Newly created request should have a stream");
-            io::copy(self.body_mut(), &mut stream)?;
+
+            let map_err = |e: io::Error| wasi::ErrorCode::InternalError(Some(e.to_string()));
+
+            match self.body_mut() {
+                Body::Empty => {}
+                Body::Full(bytes) => stream.write_all(bytes).map_err(map_err)?,
+                Body::Stream(read) => {
+                    let mut buf = Vec::new();
+                    read.read_to_end(&mut buf).map_err(map_err)?;
+                    stream.write_all(&buf).map_err(map_err)?;
+                }
+            };
         }
 
         wasi::OutgoingBody::finish(out_body, None)?;
@@ -73,7 +85,7 @@ impl RequestExt for Request {
                 stream.read_to_end(&mut bytes)?;
             }
             wasi::IncomingBody::finish(in_body);
-            Body::Full(bytes)
+            Body::Full(bytes.into())
         } else {
             Body::Empty
         };
@@ -89,6 +101,10 @@ impl RequestExt for Request {
 #[derive(Default)]
 pub struct RequestBuilder(RequestBuilderInner);
 
+#[allow(
+    clippy::large_enum_variant,
+    reason = "Err variant is highly unlikely to be constructed, so boxing performance penalty does not outwheight size difference"
+)]
 enum RequestBuilderInner {
     Ok {
         method: http::Method,
