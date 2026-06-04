@@ -310,6 +310,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "rust-redis"
+version = "1.1.1"
+dependencies = [
+ "wassel-sdk",
+]
+
+[[package]]
 name = "semver"
 version = "1.0.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"

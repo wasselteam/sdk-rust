@@ -19,6 +19,7 @@ wit_bindgen::generate!({
     with: {
         "wassel:http-client/http-client": generate,
         "wassel:postgres/postgres": generate,
+        "wassel:redis/redis": generate,
 
         "wasi:config/store@0.2.0-rc.1": wasi_config_bindings::wasi::config::store,
 

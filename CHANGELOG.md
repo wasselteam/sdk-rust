@@ -11,11 +11,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - [sdk] BREAKING: Renamed `postgres::Value::Unsupported` to `postgres::Value::Other`
 - [sdk] BREAKING: Update WIT with new `wassel:postgres` and `wassel:http-client` packages
+- [sdk] Update WIT with new `wassel:redis` package
 
 ### Added
 
 - [example] Added axum example
 - [example] Added fibonacci sequence example
+- [example] Added redis example
 
 ## [2.1.2] - 2026.05.20
 

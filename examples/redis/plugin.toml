@@ -1,0 +1,8 @@
+id = "rust-redis"
+name = "Rust Plugin with Redis"
+version = "0.0.0"
+component = "${CARGO_TARGET_DIR:../../target}/wasm32-wasip2/release/rust_redis.wasm"
+endpoint = "/rust/redis/"
+
+[build]
+cmd = "cargo build --target wasm32-wasip2 --release"
